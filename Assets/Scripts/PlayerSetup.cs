@@ -3,13 +3,14 @@ using UnityEngine;
 
 public class PlayerSetup : NetworkBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    protected virtual bool CheckStateAuthority() => Object.HasStateAuthority;
+
     public void SetupCamera(Transform playerTransform)
     {
-        if(Object.HasStateAuthority)
+        if(CheckStateAuthority())
         {
             // Only the client that owns this player object should set up the camera
-            CameraFollow cameraFollow = FindObjectOfType<CameraFollow>();
+            CameraFollow cameraFollow = FindFirstObjectByType<CameraFollow>();
             if (cameraFollow != null)
             {
                 cameraFollow.AssignCamera(playerTransform);

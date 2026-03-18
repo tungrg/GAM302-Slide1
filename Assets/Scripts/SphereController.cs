@@ -27,5 +27,6 @@ public class SphereController : NetworkBehaviour
         var move = playerInput.actions["Move"].ReadValue<Vector2>();
         var move3D = new Vector3(move.x, 0, move.y);
         controller.Move(move3D * Time.fixedDeltaTime * 5f);
+        
     }
 }

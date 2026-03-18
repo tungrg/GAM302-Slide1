@@ -7,7 +7,7 @@ public class CameraFollow : MonoBehaviour
     
     private CinemachineCamera cinemachineCamera;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Awake()
+    protected virtual void Awake()
     {
         cinemachineCamera = GetComponent<CinemachineCamera>();
         if(cinemachineCamera ==null)
@@ -16,7 +16,7 @@ public class CameraFollow : MonoBehaviour
         }
 
     }
-    public void AssignCamera(Transform target)
+    public virtual void AssignCamera(Transform target)
     {
         if(cinemachineCamera!=null)
         {
