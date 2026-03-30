@@ -12,12 +12,13 @@ namespace StarterAssets
 		public Vector2 look;
 		public bool jump;
 		public bool sprint;
+		public bool shield;
 
 		[Header("Movement Settings")]
 		public bool analogMovement;
 
 		[Header("Mouse Cursor Settings")]
-		public bool cursorLocked = true;
+		public bool cursorLocked = false;
 		public bool cursorInputForLook = true;
 
 #if ENABLE_INPUT_SYSTEM
@@ -43,6 +44,11 @@ namespace StarterAssets
 		{
 			SprintInput(value.isPressed);
 		}
+
+		public void OnShield(InputValue value)
+		{
+			ShieldInput(value.isPressed);
+		}
 #endif
 
 
@@ -66,14 +72,15 @@ namespace StarterAssets
 			sprint = newSprintState;
 		}
 
-		private void OnApplicationFocus(bool hasFocus)
+		public void ShieldInput(bool newShieldState)
 		{
-			SetCursorState(cursorLocked);
+			if (newShieldState) shield = true;
 		}
 
-		private void SetCursorState(bool newState)
+		private void OnApplicationFocus(bool hasFocus)
 		{
-			Cursor.lockState = newState ? CursorLockMode.Locked : CursorLockMode.None;
+			Cursor.lockState = CursorLockMode.None;
+			Cursor.visible = true;
 		}
 	}
 	
