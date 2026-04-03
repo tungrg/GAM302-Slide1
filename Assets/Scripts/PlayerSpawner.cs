@@ -5,6 +5,7 @@ public class PlayerSpawner : SimulationBehaviour, IPlayerJoined
 {
     [SerializeField]
     private GameObject playerPrefab;
+
     public void PlayerJoined(PlayerRef player)
     {
         if(player==Runner.LocalPlayer)
