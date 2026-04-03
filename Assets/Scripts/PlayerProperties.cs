@@ -10,9 +10,9 @@ public class PlayerProperties : NetworkBehaviour
 
     private const int MaxHealth = 100;
 
-    [SerializeField]
+    
     private HealthBar healthBar;
-    private PlayerInput playerInput;
+    //private PlayerInput playerInput;
 
     private void OnHealthChanged()
     {
@@ -20,12 +20,13 @@ public class PlayerProperties : NetworkBehaviour
     }
     void Awake()
     {
-        playerInput = GetComponent<PlayerInput>();
+        healthBar = GetComponentInChildren<HealthBar>();
+        // playerInput = GetComponent<PlayerInput>();
 
-         if (playerInput != null)
-        {
-            playerInput.notificationBehavior = PlayerNotifications.InvokeCSharpEvents;
-        }
+        //  if (playerInput != null)
+        // {
+        //     playerInput.notificationBehavior = PlayerNotifications.InvokeCSharpEvents;
+        // }
     }
 
     public override void Spawned()
@@ -35,17 +36,22 @@ public class PlayerProperties : NetworkBehaviour
     }
 
     // Update is called once per frame  
-    public override void FixedUpdateNetwork()
-    {
-        if (playerInput == null || Object == null || Object.HasInputAuthority == false)
-        {
-            return;
-        }
+    // public override void FixedUpdateNetwork()
+    // {
+    //     if (playerInput == null || Object == null || Object.HasInputAuthority == false)
+    //     {
+    //         return;
+    //     }
 
-        if (playerInput.actions["Jump"].triggered)
-        {
-            Debug.Log("Jump action triggered, reducing health by 10.");
-            health = Mathf.Max(0, health - 10);
-        }
+    //     if (playerInput.actions["Jump"].triggered)
+    //     {
+    //         Debug.Log("Jump action triggered, reducing health by 10.");
+    //         health = Mathf.Max(0, health - 10);
+    //     }
+    // }
+    [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
+    public void RPC_TakeDamage(int damage)
+    {
+        health = Mathf.Max(0, health - damage);
     }
 }

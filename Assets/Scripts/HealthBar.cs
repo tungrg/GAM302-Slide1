@@ -22,7 +22,7 @@ public class HealthBar : MonoBehaviour
             healthFill.fillAmount = healthPercentage;
         }
     }
-    void Update()
+    void LateUpdate()
     {
         transform.rotation = Quaternion.LookRotation(transform.position - mainCamera.transform.position);
     }
