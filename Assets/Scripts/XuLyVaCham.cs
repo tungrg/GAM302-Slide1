@@ -13,10 +13,10 @@ public class XuLyVaCham : NetworkBehaviour
             return;
 
         // Tell the other player's client (StateAuthority) to despawn itself
-        var otherPlayer = otherNetObj.GetComponent<XuLyVaCham>();
+        var otherPlayer = otherNetObj.GetComponent<PlayerProperties>();
         if (otherPlayer != null)
         {
-            otherPlayer.RPC_Despawn();
+            otherPlayer.RPC_TakeDamage(10);
         }
     }
 

@@ -9,10 +9,7 @@ public class PlayerProperties : NetworkBehaviour
     public int health { get; set; }
 
     private const int MaxHealth = 100;
-
-    
     private HealthBar healthBar;
-    //private PlayerInput playerInput;
 
     private void OnHealthChanged()
     {
@@ -21,12 +18,6 @@ public class PlayerProperties : NetworkBehaviour
     void Awake()
     {
         healthBar = GetComponentInChildren<HealthBar>();
-        // playerInput = GetComponent<PlayerInput>();
-
-        //  if (playerInput != null)
-        // {
-        //     playerInput.notificationBehavior = PlayerNotifications.InvokeCSharpEvents;
-        // }
     }
 
     public override void Spawned()
@@ -35,20 +26,7 @@ public class PlayerProperties : NetworkBehaviour
         healthBar.UpdateHealthBar(MaxHealth, health);
     }
 
-    // Update is called once per frame  
-    // public override void FixedUpdateNetwork()
-    // {
-    //     if (playerInput == null || Object == null || Object.HasInputAuthority == false)
-    //     {
-    //         return;
-    //     }
 
-    //     if (playerInput.actions["Jump"].triggered)
-    //     {
-    //         Debug.Log("Jump action triggered, reducing health by 10.");
-    //         health = Mathf.Max(0, health - 10);
-    //     }
-    // }
     [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
     public void RPC_TakeDamage(int damage)
     {
